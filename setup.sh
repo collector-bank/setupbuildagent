@@ -82,6 +82,9 @@ sudo cp teamcity.service /etc/systemd/system/teamcity.service
 sudo systemctl enable teamcity
 sudo systemctl start teamcity
 
+# https://github.com/dotnet/corefx/issues/5660
+echo "fs.inotify.max_user_instances=1024" | sudo tee -a /etc/sysctl.conf
+
 #########
 
 echo 'date
