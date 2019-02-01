@@ -4,6 +4,7 @@ $ErrorActionPreference = "Stop"
 function Main()
 {
     Clean-Folder "/mnt/ramdisk/tcagent/work" 16 5
+    Clean-Folder "/mnt/ramdisk/*vsts/?/*" 1 3
 }
 
 function Clean-Folder([string] $folderpath, [int] $namelength, [int] $keep)
@@ -14,7 +15,7 @@ function Clean-Folder([string] $folderpath, [int] $namelength, [int] $keep)
         return
     }
 
-    $folders = @(dir $folderpath | ? { $_.Name.Length -eq $namelength } | Sort-Object LastWriteTime -desc | select -Skip $keep)
+    $folders = @(dir -Directory $folderpath | ? { $_.Name.Length -eq $namelength } | Sort-Object LastWriteTime -desc | select -Skip $keep)
     Log ("Found " + $folders.Count + " old folders in '" + $folderpath + "'")
     $folders | % {
         Log ("Deleting: '" + $_.FullName + "'")
