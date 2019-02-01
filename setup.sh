@@ -101,6 +101,9 @@ sudo runuser -l  vsts -c '/home/vsts/agent/svc.sh install'
 sudo /home/vsts/agent/svc.sh start
 
 
+# https://github.com/dotnet/corefx/issues/5660
+echo "fs.inotify.max_user_instances=1024" | sudo tee -a /etc/sysctl.conf
+
 #########
 
 
