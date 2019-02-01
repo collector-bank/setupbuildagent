@@ -1,3 +1,4 @@
+
 sudo apt-get update
 sudo apt-get dist-upgrade -y
 sudo apt-get autoremove -y
@@ -81,8 +82,28 @@ sudo cp teamcity.service /etc/systemd/system/teamcity.service
 
 sudo systemctl enable teamcity
 sudo systemctl start teamcity
+#########
+
+sudo adduser vsts
+sudo usermod -a -G docker vsts
+
+sudo mkdir /home/vsts/agent
+
+sudo wget https://vstsagentpackage.azureedge.net/agent/2.144.2/vsts-agent-linux-x64-2.144.2.tar.gz -O /home/vsts/vsts-agent.tar.gz
+sudo tar zxvf /home/vsts/vsts-agent.tar.gz -C /home/vsts/agent
+
+rm /home/vsts/vsts-agent.tar.gz
+
+/home/vsts/agent/config.sh
+
+sudo runuser -l  vsts -c '/home/vsts/agent/svc.sh install'
+
+sudo /home/vsts/agent/svc.sh start
+
 
 #########
+
+
 
 echo 'date
 sudo apt-get update
