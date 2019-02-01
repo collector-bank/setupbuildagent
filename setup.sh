@@ -120,6 +120,6 @@ docker system prune -f
 docker images -a | grep "\.azurecr\." | grep -v "minutes ago" | awk \'{print $3}\' | xargs docker rmi -f' > prune_docker.sh
 
 crontab -e
-# * * * * * /home/$USER/update.sh >> update.log
-# * * * * * /home/$USER/prune_docker.sh >> prune_docker.log
-# * * * * * sudo /usr/bin/pwsh /home/$USER/prune_builds.ps1 >> prune_builds.log
+# 0 0 * * * /home/$USER/update.sh >> update.log
+# 0 * * * * /home/$USER/prune_docker.sh >> prune_docker.log
+# 0 * * * * sudo /usr/bin/pwsh /home/$USER/prune_builds.ps1 >> prune_builds.log
