@@ -83,6 +83,7 @@ sudo cp teamcity.service /etc/systemd/system/teamcity.service
 
 sudo systemctl enable teamcity
 sudo systemctl start teamcity
+
 #########
 
 sudo adduser vsts
@@ -108,7 +109,6 @@ echo "fs.inotify.max_user_instances=1024" | sudo tee -a /etc/sysctl.conf
 #########
 
 
-
 echo 'date
 sudo apt-get update
 sudo apt-get dist-upgrade -y
@@ -120,7 +120,6 @@ docker images prune -f
 docker system prune -f
 docker images -a | grep "\.azurecr\." | grep -v "minutes ago" | awk \'{print $3}\' | xargs docker rmi -f' > prune_docker.sh
 
-crontab -e
-# 0 0 * * * /home/$USER/update.sh >> update.log
-# 0 * * * * /home/$USER/prune_docker.sh >> prune_docker.log
-# 0 * * * * sudo /usr/bin/pwsh /home/$USER/prune_builds.ps1 >> prune_builds.log
+(crontab -l 2>/dev/null; echo "0 0 * * * /home/$USER/update.sh >> update.log") | crontab -
+(crontab -l 2>/dev/null; echo "0 * * * * /home/$USER/prune_docker.sh >> prune_docker.log") | crontab -
+(crontab -l 2>/dev/null; echo "0 * * * * sudo /usr/bin/pwsh /home/$USER/prune_builds.ps1 >> prune_builds.log") | crontab -
