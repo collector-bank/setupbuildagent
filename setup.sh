@@ -52,6 +52,7 @@ pwsh -v
 sudo apt-get install git -y
 sudo apt-get install docker.io -y
 sudo apt-get install curl -y
+sudo apt-get install p7zip -y
 
 #########
 
