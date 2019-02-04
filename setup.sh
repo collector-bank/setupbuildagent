@@ -122,6 +122,6 @@ docker images prune -f
 docker system prune -f
 docker images -a | grep "\.azurecr\." | grep -v "minutes ago" | awk \'{print $3}\' | xargs docker rmi -f' > prune_docker.sh
 
-(crontab -l 2>/dev/null; echo "0 0 * * * /home/$USER/update.sh >> update.log") | crontab -
+(crontab -l 2>/dev/null; echo "0 * * * * /home/$USER/update.sh >> update.log") | crontab -
 (crontab -l 2>/dev/null; echo "0 * * * * /home/$USER/prune_docker.sh >> prune_docker.log") | crontab -
 (crontab -l 2>/dev/null; echo "0 * * * * sudo /usr/bin/pwsh /home/$USER/prune_builds.ps1 >> prune_builds.log") | crontab -
